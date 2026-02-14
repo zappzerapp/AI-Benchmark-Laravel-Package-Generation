@@ -4,6 +4,14 @@ This repository documents a benchmark of various LLMs (Large Language Models) ta
 
 The goal was to test the capabilities of proprietary models (Claude) against current Open Source models regarding **modern PHP 8.2+ features**, **Laravel Architecture**, **Logic Implementation**, and **Resource Efficiency**.
 
+## 📋 The Prompt
+
+Each model received the exact same prompt. You can read the full prompt here: [prompt.md](prompt.md).
+
+> **Task Summary:** Create a Laravel Package named `VendorName/RequestShield` including Middleware (Block Bots/IPs), ServiceProvider, Facade, Config, and Artisan Stats Command using PHP 8.2+ features.
+
+---
+
 ## 💰 Resources & Efficiency (The "Hidden Cost")
 
 A critical finding of this benchmark is the resource consumption (tokens/cost/compute).
@@ -51,34 +59,38 @@ Technical implementation rating (Scale 1-5).
 
 ## 🔍 Detailed Candidate Analysis
 
-### 👑 Claude Opus 4.6 (The Quality Standard)
-The clear winner in terms of code quality.
+### 👑 Claude Opus 4.6
 *   **Pro:** Consistently uses `readonly classes` and `strict_types`.
 *   **Highlight:** The IP check uses real Bitwise Operators (`<<`, `&`) for CIDR ranges. This is the most performant and correct way to check IP ranges.
 *   **Stats:** Uses Laravel Cache intelligently with TTL.
 
-### 🏛️ Kimi k2.5 (The Enterprise Architect)
-Kimi writes code designed for banking software.
+### 🤖 Claude Sonnet 4.5
+*   **Pro:** Clean implementation, no hallucinations.
+*   **Highlight:** Generated the best-looking default Blade view with modern CSS gradients.
+*   **Contra:** Costs almost as much as Opus but took twice as long.
+
+### 🏛️ Kimi k2.5
 *   **Pro:** Uses `Contracts` (`ShieldInterface`) and custom `Exceptions` for maximum decoupling.
 *   **Highlight:** Built a **CSS-animated "Shield" graphic** into the Blade view. Impressive attention to detail.
 *   **Contra:** Severely "Over-Engineered" for a small middleware package and extremely slow (8 mins).
 
-### 🛠️ GLM-5 (The Feature King)
-GLM-5 built the most comprehensive package.
+### 🛠️ GLM-5
 *   **Pro:** Built a custom driver system (File vs. Memory) for statistics to survive cache flushes.
 *   **Highlight:** Supports Regex patterns for User-Agents and Whitelisting (even though not explicitly requested).
 *   **Contra:** Very slow generation time.
 
-### ⚡ DeepSeek v3.1 (The Efficient One)
+### ⚡ DeepSeek v3.1
 *   **Pro:** Incredibly fast and resource-efficient. The code is valid PHP and functional.
 *   **Contra:** Logic is very minimalistic (no complex CIDR checks, simple string matches).
 
-### ⚠️ Qwen Coder & Devstral (The Incomplete)
+### 🐛 MiniMax 2.5
+*   **Pro:** Solid logic implementation. The **Bitwise Math** for CIDR checks and the Regex conversion for Wildcards (`*`) are implemented correctly and efficiently.
+*   **Highlight:** **Defensive Coding:** It was the **only model** to wrap Cache operations in a `try-catch` block, ensuring the application doesn't crash if the cache driver (e.g., Redis) fails.
+*   **Contra:** Invalid `composer.json` type (`"type": "laravel-package"` instead of `library`) and hardcoded view paths (`request-shield::blocked`) which limits customization flexibility.
+
+### ⚠️ Qwen Coder & Devstral
 *   **Qwen:** Took the prompt "Mock statistics" too literally and used `rand(10, 100)` in the command. Technically followed the prompt, but practically useless.
 *   **Devstral:** Extremely fast, but methods returned hardcoded `0` (Skeleton code).
-
-### 🐛 MiniMax 2.5
-*   **Error:** Defined `type: "laravel-package"` in `composer.json`. This is not a valid official Composer type.
 
 ---
 
