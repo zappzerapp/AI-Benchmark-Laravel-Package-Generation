@@ -1,0 +1,39 @@
+{
+    "name": "vendorname/request-shield",
+    "description": "Laravel middleware package to block malicious bots and specific IPs.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "VendorName\\RequestShield\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VendorName\\RequestShield\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VendorName\\RequestShield\\RequestShieldServiceProvider"
+            ],
+            "aliases": {
+                "Shield": "VendorName\\RequestShield\\Facades\\Shield"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
